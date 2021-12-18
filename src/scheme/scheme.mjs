@@ -1,5 +1,3 @@
-import * as fs from "fs";
-
 import { assert, EOFError, SchemeError } from "../errors.mjs";
 import { 
   addPrimitivesToFrame,
@@ -20,7 +18,7 @@ import {
   SchemeValue,
   UserDefinedProcedure,
 } from "./primitives/index.mjs";
-import { bufferInput, bufferLines, schemeRead } from "./scheme-reader.mjs";
+import { schemeRead } from "./scheme-reader.mjs";
 
 
 /**
@@ -383,9 +381,6 @@ const SPECIAL_FORMS = {
 };
 
 
-
-
-
 function doMuForm(exprs, env) {
   checkForm(exprs, 2);
   const formals = exprs.first;
@@ -397,7 +392,7 @@ function doMuForm(exprs, env) {
 SPECIAL_FORMS["mu"] = doMuForm;
 
 
-function readEvalPrintLoop(getNextLine, env, interactive) {
+export function readEvalPrintLoop(getNextLine, env, interactive) {
   /* eslint-disable no-constant-condition */
   while (true) {
     try {
@@ -432,21 +427,10 @@ function readEvalPrintLoop(getNextLine, env, interactive) {
 }
 
 
-function createGlobalFrame() {
+export function createGlobalFrame() {
   const env = new Frame(null);
   env.define("eval", new PrimitiveProcedure(schemeEval, { useEnv: true }));
   env.define("apply", new PrimitiveProcedure(schemeApply, { useEnv: true }));
   addPrimitivesToFrame(env);
   return env;
-}
-
-
-export function main() {
-  let getNextLine = bufferInput, interactive = true;
-  if (process.argv[2] !== undefined) {
-    const lines = fs.readFileSync(process.argv[2], { encoding: "utf-8" }).split(/\r?\n/);
-    getNextLine = () => bufferLines(lines);
-    interactive = false;
-  }
-  readEvalPrintLoop(getNextLine, createGlobalFrame(), interactive);
 }

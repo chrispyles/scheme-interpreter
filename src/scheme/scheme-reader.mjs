@@ -1,4 +1,4 @@
-import { Buffer, InputReader, LineReader } from "../buffer/index.mjs";
+import { Buffer, LineReader } from "../buffer/index.mjs";
 
 import { EOFError, SchemeError } from "../errors.mjs";
 import { nil, Pair } from "./primitives/index.mjs";
@@ -59,12 +59,6 @@ function readTail(src) {
     }
     throw err;
   }
-}
-
-
-export function bufferInput(prompt="scm> ") {
-  const lines = (new InputReader(prompt)).getLines();
-  return new Buffer(tokenizeLines(lines));
 }
 
 
