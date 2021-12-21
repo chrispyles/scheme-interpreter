@@ -2,12 +2,15 @@ import React from "react";
 
 import SchemeInterpreter from "./SchemeInterpreter";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default function App() {
   return (
-    <>
-      <h2>React says hello</h2>
+    <div className="container">
+      <h1>Scheme Interpreter</h1>
+      <hr />
       <SchemeInterpreter />
-    </>
+    </div>
   );
 }

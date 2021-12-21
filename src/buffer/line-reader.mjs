@@ -1,6 +1,3 @@
-import { EOFError } from "../errors.mjs";
-
-
 export class LineReader {
   lines;
   prompt;
@@ -18,7 +15,6 @@ export class LineReader {
       line = line.replace(/(^\n|\n$)+/gm, "");
       if (this.prompt !== null && line !== "" && !line.trimStart().startsWith(this.comment)) {
         console.log(this.prompt + line);
-        // this.prompt = ' '.repeat(this.prompt.length);
       }
       return { value: line, done: this.lines.length === 0 };
     } };

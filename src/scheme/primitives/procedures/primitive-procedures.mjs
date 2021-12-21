@@ -391,7 +391,7 @@ registerPrimitive(schemeDisplay, "display");
 
 
 function schemePrint(x) {
-  SchemeValue.printSchemeObj(x);
+  console.log(SchemeValue.schemeRepr(x)); // TODO: adapt for web version
   return okay;
 }
 registerPrimitive(schemePrint, "print");

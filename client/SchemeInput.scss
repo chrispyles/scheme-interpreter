@@ -1,0 +1,25 @@
+.scheme-input {
+  .prompt,
+  textarea {
+    font-family: monospace;
+    border: 1px solid black;
+    line-height: 1.25em;
+    height: calc(1.25em + 20px);
+    padding: 10px;
+  }
+
+  .prompt {
+    border-right: 0;
+  }
+
+  textarea {
+    outline: none;
+    border-left: none;
+    resize: none;
+    width: 100%;
+  }
+
+  button.btn.btn-success {
+    width: 100px;
+  }
+}

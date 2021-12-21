@@ -10,10 +10,13 @@ module.exports = function(_env, argv) {
   return {
     devtool: isDevelopment && "cheap-module-source-map",
     entry: "./client/index.js",
+    resolve: {
+      extensions: ["*", ".js", ".jsx"],
+    },
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: "assets/js/[name].[contenthash:8].js",
-      publicPath: isProduction ? "/" : "./",
+      filename: "assets/js/main.js",
+      publicPath: "/",
     },
     module: {
       rules: [
@@ -25,21 +28,21 @@ module.exports = function(_env, argv) {
             options: {
               cacheDirectory: true,
               cacheCompression: false,
-              envName: isProduction ? "production" : "development"
+              envName: isProduction ? "production" : "development",
             }
-          }
+          },
         },
         {
           test: /\.css$/,
           use: [
-            isProduction ? MiniCssExtractPlugin : "style-loader",
+            isProduction ? MiniCssExtractPlugin.loader : "style-loader",
             "css-loader",
           ]
         },
         {
           test: /\.s[ac]ss$/,
           use: [
-            isProduction ? MiniCssExtractPlugin : "style-loader",
+            isProduction ? MiniCssExtractPlugin.loader : "style-loader",
             {
               loader: "css-loader",
               options: {
@@ -57,30 +60,27 @@ module.exports = function(_env, argv) {
         },
       ],
     },
-    resolve: {
-      extensions: [".js", ".jsx"],
-    },
     plugins: [
       isProduction &&
         new MiniCssExtractPlugin({
-          filename: "assets/css/[name].[contenthash:8].css",
-          chunkFilename: "assets/css/[name].[contenthash:8].chunk.css"
+          filename: "assets/css/[name].css",
+          chunkFilename: "assets/css/[name].chunk.css"
         }),
-        new webpack.DefinePlugin({
-          "process.env.NODE_ENV": JSON.stringify(
-            isProduction ? "production" : "development"
-          ),
-        }),
+        // new webpack.DefinePlugin({
+        //   "process.env.NODE_ENV": JSON.stringify(
+        //     isProduction ? "production" : "development"
+        //   ),
+        // }),
         new HtmlWebpackPlugin({
           template: path.resolve(__dirname, "public/index.html"),
-          inject: true,
+          // inject: true,
         }),
     ].filter(Boolean),
     devServer: {
       compress: true,
       historyApiFallback: true,
       open: true,
-      overlay: true,
+      client: { overlay: true },
     },
   };
 };

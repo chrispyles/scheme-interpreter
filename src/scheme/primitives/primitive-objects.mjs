@@ -20,7 +20,7 @@ export class SchemeValue {
     throw new ABCError("the toString method must be implemented");
   }
 
-  static printSchemeObj(obj) {
+  static schemeRepr(obj) {
     let repr = null;
     if (obj instanceof SchemeValue) {
       repr = obj.schemeRepr();
@@ -28,9 +28,7 @@ export class SchemeValue {
     else if (obj !== null) {
       repr = obj.toString();
     }
-    if (repr !== null) {
-      console.log(repr);
-    }
+    return repr;
   }
 }
 

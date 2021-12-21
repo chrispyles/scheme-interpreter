@@ -394,6 +394,7 @@ SPECIAL_FORMS["mu"] = doMuForm;
 
 export function readEvalPrintLoop(getNextLine, env, interactive) {
   /* eslint-disable no-constant-condition */
+  const printedLines = [];
   while (true) {
     try {
       const src = getNextLine();
@@ -401,29 +402,34 @@ export function readEvalPrintLoop(getNextLine, env, interactive) {
         try {
           const expr = schemeRead(src);
           const result = schemeEval(expr, env);
-          SchemeValue.printSchemeObj(result);
+          printedLines.push(SchemeValue.schemeRepr(result));
         }
         catch (err) {
           if (err instanceof SchemeError) {
-            console.log(`Error: ${err.message}`);
+            printedLines.push(`Error: ${err.message}`);
           }
           else {
             throw err;
           }
         }
       }
-      console.log("foo")
       if (!interactive) throw new EOFError();
     }
     catch (err) {
       if (err instanceof EOFError) {
-        return;
+        return printedLines;
       }
       else {
         throw err;
       }
     }
   }
+}
+
+
+export function consoleLoggingRepl(getNextLine, env, interactive) {
+  const lines = readEvalPrintLoop(getNextLine, env, interactive);
+  lines.forEach(l => console.log(l));
 }
 
 

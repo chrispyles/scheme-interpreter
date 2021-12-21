@@ -1,10 +1,10 @@
 import * as fs from "fs";
 import promptSync from "prompt-sync";
 
-import { Buffer } from "buffer";
+import { Buffer } from "./buffer/index.mjs";
 import { bufferLines } from "./scheme/scheme-reader.mjs";
 import { tokenizeLines } from "./scheme/scheme-tokens.mjs";
-import { createGlobalFrame, readEvalPrintLoop } from "./scheme/scheme.mjs";
+import { createGlobalFrame, consoleLoggingRepl } from "./scheme/scheme.mjs";
 
 
 const PROMPT = promptSync({ sigint: true });
@@ -38,5 +38,8 @@ export function main() {
     getNextLine = () => bufferLines(lines);
     interactive = false;
   }
-  readEvalPrintLoop(getNextLine, createGlobalFrame(), interactive);
+  consoleLoggingRepl(getNextLine, createGlobalFrame(), interactive);
 }
+
+
+main();
