@@ -1,7 +1,7 @@
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
-const webpack = require("webpack");
 
 module.exports = function(_env, argv) {
   const isProduction = argv.mode === "production";
@@ -66,14 +66,14 @@ module.exports = function(_env, argv) {
           filename: "assets/css/[name].css",
           chunkFilename: "assets/css/[name].chunk.css"
         }),
-        // new webpack.DefinePlugin({
-        //   "process.env.NODE_ENV": JSON.stringify(
-        //     isProduction ? "production" : "development"
-        //   ),
-        // }),
         new HtmlWebpackPlugin({
           template: path.resolve(__dirname, "public/index.html"),
           inject: false,
+        }),
+        new CopyWebpackPlugin({
+          patterns: [
+            { from: "static" },
+          ],
         }),
     ].filter(Boolean),
     devServer: {
