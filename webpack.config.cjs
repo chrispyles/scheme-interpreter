@@ -35,14 +35,14 @@ module.exports = function(_env, argv) {
         {
           test: /\.css$/,
           use: [
-            isProduction ? MiniCssExtractPlugin.loader : "style-loader",
+            "style-loader",
             "css-loader",
           ]
         },
         {
           test: /\.s[ac]ss$/,
           use: [
-            isProduction ? MiniCssExtractPlugin.loader : "style-loader",
+              "style-loader",
             {
               loader: "css-loader",
               options: {
@@ -73,7 +73,7 @@ module.exports = function(_env, argv) {
         // }),
         new HtmlWebpackPlugin({
           template: path.resolve(__dirname, "public/index.html"),
-          // inject: true,
+          inject: false,
         }),
     ].filter(Boolean),
     devServer: {
