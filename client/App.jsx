@@ -18,7 +18,8 @@ export default function App() {
           a flavor of Scheme used in UC Berkeley&apos;s CS 61A course. The interpreter runs entirely in
           the browser, although there is also a command-line{" "}
           <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop" target="_blank" rel="noreferrer">REPL</a>{" "}
-          that you can use by cloning the repository on <a href="" target="_blank" rel="noreferrer">GitHub</a>.
+          that you can use by cloning the repository on{" "}
+          <a href="https://github.com/chrispyles/scheme-interpreter" target="_blank" rel="noreferrer">GitHub</a>.
         </p>
         <hr />
       </div>
