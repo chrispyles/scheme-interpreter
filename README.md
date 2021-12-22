@@ -8,7 +8,7 @@ The web-based interpreter can be found at [chrispyles.io/scheme-interpreter](htt
 
 ## Running Locally
 
-This project also includes a command-line REPL that can also be used to execute Scheme code. To use it, clone this repository and run the `start` script:
+This project also includes a command-line [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) that can also be used to execute Scheme code. To use it, clone this repository and use `npm` to run the `start` script:
 
 ```
 git clone https://github.com/chrispyles/scheme-interpreter
