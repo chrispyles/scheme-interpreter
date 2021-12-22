@@ -55,6 +55,7 @@ export default class SchemeInput extends React.Component {
       el.style.height = null;
       this.prompt.current.style.height = null;
     }
+    this.textarea.current.scrollIntoView();
   }
 
   render() {

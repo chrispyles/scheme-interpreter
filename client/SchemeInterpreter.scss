@@ -1,0 +1,9 @@
+@import "./App";
+
+$interpreter-mb: 20px;
+
+.interpreter {
+  max-height: calc(100vh - $header-height - $header-mt - $header-mb - $interpreter-mb);
+  overflow: scroll;
+  margin-bottom: $interpreter-mb;
+}

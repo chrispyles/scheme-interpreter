@@ -1,0 +1,17 @@
+$header-mt: 20px;
+$header-mb: 30px;
+$header-height: 125px;
+
+.header {
+  height: $header-height;
+  margin-top: $header-mt;
+  margin-bottom: $header-mb;
+}
+
+pre,
+textarea,
+.prompt {
+  font-family: 'Courier Prime', monospace;
+  font-size: 16px;
+  line-height: 1rem;
+}

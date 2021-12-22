@@ -1,20 +1,20 @@
 .scheme-input {
   .prompt,
   textarea {
-    font-family: monospace;
     border: 1px solid black;
-    line-height: 1.25em;
-    height: calc(1.25em + 20px);
+    height: calc(1rem + 20px);
     padding: 10px;
   }
 
   .prompt {
     border-right: 0;
+    border-radius: 0.25rem 0 0 0.25rem;
   }
 
   textarea {
     outline: none;
     border-left: none;
+    border-radius: 0 0.25rem 0.25rem 0;
     resize: none;
     width: 100%;
   }
