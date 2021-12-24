@@ -23,10 +23,11 @@ import { schemeRead } from "./scheme-reader.mjs";
 
 /**
  * Evaluate a Scheme expression in the provided frame.
+ * 
  * @param {*} expr The expression to evaluate
  * @param {Frame} env The frame in which to evaluate `expr`
  * @returns The value of the expression as a JavaScript object
- * @throws SchemeError If the expression is invalid
+ * @throws {SchemeError} If the expression is invalid
  */
 export function schemeEval(expr, env) {
   assert(expr !== null);

@@ -10,6 +10,7 @@ const PRIMITIVES = [];
 
 /**
  * Register a function as a primitive procedure with the provided names.
+ * 
  * @param {(...any) => SchemeValue} fn The function to register
  * @param  {...string} names The names the function should be bound as
  */
@@ -21,6 +22,7 @@ function registerPrimitive(fn, ...names) {
 
 /**
  * Add all registered primitives to the provided frame.
+ * 
  * @param {Frame} frame The frame to add primitives to
  */
 export function addPrimitivesToFrame(frame) {
@@ -34,6 +36,7 @@ export function addPrimitivesToFrame(frame) {
 /**
  * Assert a predicate condition on a value (usually a type check), raising a {@link SchemeError} if
  * the predicate is not satisfied.
+ * 
  * @param {*} val The value to check
  * @param {*} pred The predicate function
  * @param {*} k The index of the argument being checked (for the error message)

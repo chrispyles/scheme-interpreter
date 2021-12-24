@@ -23,11 +23,24 @@ const TOKEN_END = new Set([
 export const DELIMITERS = new Set([ ...SINGLE_CHAR_TOKENS, ".", ",", ",@" ]);
 
 
+/**
+ * Determine whether a string represents a valid Scheme symbol.
+ * 
+ * @param {string} s The string to test
+ * @returns {boolean} Whether the string is a valid symbol
+ */
 function validSymbol(s) {
   return s.length > 0 && [...s].filter(c => !SYMBOL_CHARS.has(c)).length === 0;
 }
 
 
+/**
+ * Determine the next candidate token in a line starting from a specified index.
+ * 
+ * @param {string} line The line to read from
+ * @param {number} k The index in {@link line} to start reading from
+ * @returns {[ string, number ]} The token and the index to next start reading tokens from
+ */
 function nextCandidateToken(line, k) {
   while (k < line.length) {
     let c = line[k];
@@ -71,6 +84,12 @@ function nextCandidateToken(line, k) {
 }
 
 
+/**
+ * Convert a line of Scheme into a list of tokens.
+ * 
+ * @param {string} line The line to read
+ * @returns {(string | number | boolean)[]} The tokens parsed from the line of Scheme
+ */
 function tokenizeLine(line) {
   const result = [];
   let [ text, i ] = nextCandidateToken(line, 0);
@@ -122,9 +141,10 @@ function tokenizeLine(line) {
 
 
 /**
+ * Convert an iterator of lines of Scheme into a array of arrays of tokens.
  * 
- * @param {string[]} input 
- * @returns 
+ * @param {string[]} input The lines of Scheme
+ * @returns {(string | number | boolean)[][]} The tokenized Scheme
  */
 export function tokenizeLines(input) {
   let res = [];

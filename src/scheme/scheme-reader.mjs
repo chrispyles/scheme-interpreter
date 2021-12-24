@@ -5,6 +5,13 @@ import { nil, Pair } from "./primitives/index.mjs";
 import { DELIMITERS, tokenizeLines } from "./scheme-tokens.mjs";
 
 
+/**
+ * Read the next expression in a {@link Buffer} and return a {@link SchemeValue} representing the 
+ * parsed expression.
+ * 
+ * @param {Buffer} src The buffer to read from
+ * @returns {SchemeValue} The Scheme expression as a JS object
+ */
 export function schemeRead(src) {
   if (src.current() === null) {
     throw new EOFError("EOF");
@@ -28,6 +35,13 @@ export function schemeRead(src) {
 }
 
 
+/**
+ * Read the rest of the current expression in a buffer and return its parsed value as a 
+ * {@link SchemeValue}.
+ * 
+ * @param {Buffer} src The buffer to read from
+ * @returns {SchemeValue} The Scheme expression as a JS object
+ */
 function readTail(src) {
   try {
     if (src.current() === null) {
@@ -62,6 +76,14 @@ function readTail(src) {
 }
 
 
+/**
+ * Convert list of lines of Scheme into a Buffer by tokenizing them.
+ * 
+ * @param {string[]} lines The lines of Scheme
+ * @param {string} prompt The prompt
+ * @param {boolean} showPrompt // TODO
+ * @returns {Buffer} A buffer containing the tokenized expression represented by {@link lines}
+ */
 export function bufferLines(lines, prompt="scm> ", showPrompt=false) {
   let inputLines;
   if (showPrompt) {
