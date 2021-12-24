@@ -1,4 +1,4 @@
-import { EOFError, SchemeError } from "../../../errors.mjs";
+import { assert, EOFError, SchemeError } from "../../../errors.mjs";
 
 import { isNil, nil, okay, Pair, SchemePromise, SchemeValue } from "../primitive-objects.mjs";
 
@@ -8,12 +8,21 @@ import { PrimitiveProcedure } from "./procedures.mjs";
 const PRIMITIVES = [];
 
 
+/**
+ * Register a function as a primitive procedure with the provided names.
+ * @param {(...any) => SchemeValue} fn The function to register
+ * @param  {...string} names The names the function should be bound as
+ */
 function registerPrimitive(fn, ...names) {
   const proc = new PrimitiveProcedure(fn, { name: names[0] });
   names.forEach(n => PRIMITIVES.push([ n, proc ]));
 }
 
 
+/**
+ * Add all registered primitives to the provided frame.
+ * @param {Frame} frame The frame to add primitives to
+ */
 export function addPrimitivesToFrame(frame) {
   PRIMITIVES.forEach(([ name, proc ]) => frame.define(name, proc));
 }
@@ -22,11 +31,20 @@ export function addPrimitivesToFrame(frame) {
 // TODO: change naming scheme
 
 
+/**
+ * Assert a predicate condition on a value (usually a type check), raising a {@link SchemeError} if
+ * the predicate is not satisfied.
+ * @param {*} val The value to check
+ * @param {*} pred The predicate function
+ * @param {*} k The index of the argument being checked (for the error message)
+ * @param {*} name The name of the function (for the error message)
+ * @throws SchemeError If the predicate is not satisfied
+ */
 function checkType(val, pred, k, name) {
-  if (!pred(val)) {
-    throw new SchemeError(`argument ${k} of ${name} has wrong type (${val.constructor.name})`);
-  }
-  return val;
+  assert(
+    pred(val), 
+    `argument ${k} of ${name} has wrong type (${val.constructor.name})`, 
+    SchemeError);
 }
 
 

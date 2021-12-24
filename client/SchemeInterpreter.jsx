@@ -39,13 +39,16 @@ export default class SchemeInterpreter extends React.Component {
     }
   }
 
+  // TODO: handle exit
   runScheme(s) {
     const history = [...this.state.history];
-    const res = readEvalPrintLoop(
-      () => new Buffer(tokenizeLines([s])), this.state.env, false);
+    const printedLines = [];
+    const printLine = line => printedLines.push(line);
+    readEvalPrintLoop(
+      () => new Buffer(tokenizeLines([s])), this.state.env, false, printLine);
     history.push(
       new HistoryElement(s, HistoryElementType.INPUT), 
-      new HistoryElement(res.join("\n"), HistoryElementType.OUTPUT));
+      new HistoryElement(printedLines.join("\n"), HistoryElementType.OUTPUT));
     this.setState({ history });
   }
 

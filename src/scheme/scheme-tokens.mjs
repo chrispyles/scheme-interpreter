@@ -55,7 +55,7 @@ function nextCandidateToken(line, k) {
       if (k + 1 < line.length && line[k + 1] === c) {  // No triple quotes in Scheme
         return [ c + c, k + 2 ];
       }
-      const tokens = Array.from(jsTokens(line));
+      const tokens = Array.from(jsTokens(line.slice(k)));
       let token = { type: null, value: null };
       if (tokens.length > 0) token = tokens[0];
       if (token.type !== "StringLiteral") throw new TypeError("bad token") // TODO: better error
