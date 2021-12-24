@@ -1,6 +1,9 @@
 import { nil, Pair, SchemeValue } from "../primitive-objects.mjs";
 
 
+/**
+ * An ABC for a procedure in Scheme.
+ */
 export class Procedure extends SchemeValue {
   constructor() {
     super();
@@ -8,6 +11,9 @@ export class Procedure extends SchemeValue {
 }
 
 
+/**
+ * A primitive procedure in Scheme.
+ */
 export class PrimitiveProcedure extends Procedure {
   name;
   fn;
@@ -15,6 +21,10 @@ export class PrimitiveProcedure extends Procedure {
 
   static foo = [];
 
+  /**
+   * @param {(...ang) => SchemeValue} fn The JS function underlying this Scheme procedure
+   * @param {{ name?, useEnv? }} options
+   */
   constructor(fn, options) {
     super();
     this.name = options.name || "primitive";
@@ -32,6 +42,9 @@ export class PrimitiveProcedure extends Procedure {
 }
 
 
+/**
+ * An ABC for a user-defined procedure in Scheme.
+ */
 export class UserDefinedProcedure extends Procedure {
   body;
 
@@ -42,10 +55,18 @@ export class UserDefinedProcedure extends Procedure {
 }
 
 
+/**
+ * A lambda procedure in Scheme.
+ */
 export class LambdaProcedure extends UserDefinedProcedure {
   formals;
   env;
 
+  /**
+   * @param {Pair} formals The declaration of the procedure as a series of {@link Pair}s
+   * @param {Pair} body The function body as a series of {@link Pair}s
+   * @param {Frame} env The procedure's parent frame
+   */
   constructor(formals, body, env) {
     super();
     this.formals = formals;
@@ -53,21 +74,26 @@ export class LambdaProcedure extends UserDefinedProcedure {
     this.env = env;
   }
 
-  // TODO: this is __str__
   schemeRepr() {
-    return new Pair("lambda", new Pair(this.formals, this.body)).schemeRepr(); // TODO: is this the right method???
+    return new Pair("lambda", new Pair(this.formals, this.body)).schemeRepr();
   }
 
-  // TODO: this is __repr__
   toString() {
     return `LambdaProcedure(${this.formals}, ${this.body}, ${this.env})`;
   }
 }
 
 
+/**
+ * A mu procedure in Scheme.
+ */
 export class MuProcedure extends UserDefinedProcedure {
   formals;
 
+  /**
+   * @param {Pair} formals The declaration of the procedure as a series of {@link Pair}s
+   * @param {Pair} body The function body as a series of {@link Pair}s 
+   */
   constructor(formals, body) {
     super();
     this.formals = formals;

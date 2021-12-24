@@ -109,7 +109,7 @@ function evalAll(exprs, env) {
     return okay;
   }
   if (isNil(exprs.second)) {
-    return schemeEval(exprs.first, env); // TODO: 3rd arg?
+    return schemeEval(exprs.first, env);
   }
   else {
     schemeEval(exprs.first, env);
@@ -392,9 +392,11 @@ function doMuForm(exprs, env) {
 SPECIAL_FORMS["mu"] = doMuForm;
 
 
-export function readEvalPrintLoop(getNextLine, env, interactive) {
+export function readEvalPrintLoop(getNextLine, env, interactive, printLines) {
   /* eslint-disable no-constant-condition */
   const printedLines = [];
+  const printCollectedLines = () => printLines(
+    printedLines.splice(0, printedLines.length).filter(l => l !== null));
   while (true) {
     try {
       const src = getNextLine();
@@ -414,10 +416,12 @@ export function readEvalPrintLoop(getNextLine, env, interactive) {
         }
       }
       if (!interactive) throw new EOFError();
+      else printCollectedLines();
     }
     catch (err) {
       if (err instanceof EOFError) {
-        return printedLines;
+        printCollectedLines();
+        return;
       }
       else {
         throw err;
@@ -428,8 +432,8 @@ export function readEvalPrintLoop(getNextLine, env, interactive) {
 
 
 export function consoleLoggingRepl(getNextLine, env, interactive) {
-  const lines = readEvalPrintLoop(getNextLine, env, interactive);
-  lines.forEach(l => console.log(l));
+  const printLines = lines => lines.forEach(l => console.log(l));
+  readEvalPrintLoop(getNextLine, env, interactive, printLines);
 }
 
 
