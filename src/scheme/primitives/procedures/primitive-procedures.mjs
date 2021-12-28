@@ -41,7 +41,7 @@ export function addPrimitivesToFrame(frame) {
  * @param {*} pred The predicate function
  * @param {*} k The index of the argument being checked (for the error message)
  * @param {*} name The name of the function (for the error message)
- * @throws SchemeError If the predicate is not satisfied
+ * @throws {SchemeError} If the predicate is not satisfied
  */
 function checkType(val, pred, k, name) {
   assert(
