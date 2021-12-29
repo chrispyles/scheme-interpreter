@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { assert, SchemeError } from "../../errors.mjs";
+import { assert, SchemeError } from "../errors.mjs";
 import { 
   isNil, 
   LambdaProcedure,
@@ -13,8 +13,8 @@ import {
   SchemePromise, 
   schemeSymbolp,
   schemeTrue,
-} from "../primitives/index.mjs";
-import { evalAll, schemeEval } from "../scheme.mjs";
+} from "./primitives/index.mjs";
+import { evalAll, schemeEval } from "./scheme.mjs";
 
 
 /**
