@@ -29,7 +29,8 @@ export class SchemeValue {
 
   /**
    * Return the Scheme string representation of an object if available, otherwise null.
-   * @param {any} obj The object
+   * 
+   * @param {*} obj The object
    * @returns {string | null} The Scheme representation of the object
    */
   static schemeRepr(obj) {
@@ -63,7 +64,8 @@ export class SchemeValue {
 
   /**
    * Whether another object is also {@link okay}.
-   * @param {any} o The other object
+   * 
+   * @param {*} o The other object
    * @returns {boolean} Whether the other object is {@link okay}
    */
   equals(o) {
@@ -105,7 +107,8 @@ class Nil extends SchemeValue {
 
   /**
    * Whether another object is also {@link nil}.
-   * @param {any} o The other object
+   * 
+   * @param {*} o The other object
    * @returns {boolean} Whether the other object is {@link nil}
    */
   equals(o) {
@@ -123,6 +126,7 @@ Object.freeze(nil);
 
 /**
  * Determine whether an object is {@link nil}.
+ * 
  * @param {*} val The object
  * @returns {boolean} Whether the object is {@link nil}
  */
@@ -139,7 +143,7 @@ export class Pair extends SchemeValue {
   second;
 
   /**
-   * @param {any} first The first element of the pair
+   * @param {*} first The first element of the pair
    * @param {Pair | nil} second The rest of the pair
    */
   constructor(first, second) {
@@ -182,7 +186,8 @@ export class Pair extends SchemeValue {
 
   /**
    * Whether another object equals this pair.
-   * @param {any} o The other object
+   * 
+   * @param {*} o The other object
    * @returns {boolean}
    */
   equals(o) {
@@ -191,6 +196,7 @@ export class Pair extends SchemeValue {
 
   /**
    * Map a function to the values in this pair, returning a new {@link Pair}.
+   * 
    * @param {(any) => any} fn The function to apply
    * @returns {Pair} The new pair
    */
@@ -230,7 +236,8 @@ export class SchemePromise extends SchemeValue {
   /**
    * Return the value of the expression. If the expression has already been forced, the expression
    * is not evaluated again.
-   * @returns {any} The value of the expression
+   * 
+   * @returns {*} The value of the expression
    */
   evaluate() {
     if (this.forced) {

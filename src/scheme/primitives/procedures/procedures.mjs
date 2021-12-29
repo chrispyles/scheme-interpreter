@@ -22,7 +22,7 @@ export class PrimitiveProcedure extends Procedure {
   static foo = [];
 
   /**
-   * @param {(...ang) => SchemeValue} fn The JS function underlying this Scheme procedure
+   * @param {(...args) => SchemeValue} fn The JS function underlying this Scheme procedure
    * @param {{ name?, useEnv? }} options
    */
   constructor(fn, options) {
